@@ -39,53 +39,20 @@ int main() {
     cin >> entry;
     insertNode(head,10000 ,entry);
     output(head);
-
-    
-    // at this point, delete current and reroute pointers
-    if (current) {  // checks for current to be valid before deleting the node
-        prev->next = current->next;
-        delete current;
-        current = nullptr;
-    }
-    output(head);
-
-    // insert a node
-    current = head;
-    cout << "After which node to insert 10000? " << endl;
-    count = 1;
-    while (current) {
-        cout << "[" << count++ << "] " << current->value << endl;
-        current = current->next;
-    }
-    cout << "Choice --> ";
-    cin >> entry;
-
-    current = head;
-    prev = head;
-    for (int i = 0; i < (entry); i++)
-        if (i == 0)
-            current = current->next;
-        else {
-            current = current->next;
-            prev = prev->next;
-        }
-    //at this point, insert a node between prev and current
-    Node * newnode = new Node;
-    newnode->value = 10000;
-    newnode->next = current;
-    prev->next = newnode;
+    // inserting to tail
+    cout <<"--- Adding 999 to tail---"<<endl;
+    addNodeToTail(head,999);
     output(head);
 
     // deleting the linked list
-    current = head;
-    while (current) {
-        head = current->next;
-        delete current;
-        current = head;
-    }
-    head = nullptr;
+    cout <<"--- Deleting the entire list---"<<endl;
+    deleteList(head);
     output(head);
 
+
+
+    
+    
     return 0;
 }
 
@@ -101,4 +68,26 @@ void output(Node * hd) {
         current = current->next;
     }
     cout << endl;
+}
+void addNodeToFront(Node*& head, float val) {
+    Node *newNode = new Node;
+    newNode->value = val;
+    newNode->next = head;
+    head = newNode;
+}
+
+void addNodeTotail(Node*& head, float val) {
+    Node *newNode = new Node;
+    newNode->value = val;
+    newNode->next = nullptr;
+
+    if (!head) {
+        head = newNode;
+        return;
+    }
+    Node* current = head;
+    while (current->next != nullptr) {
+        current = current->next;
+    }
+    current->next = newNode;
 }
