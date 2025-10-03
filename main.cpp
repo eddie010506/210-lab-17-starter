@@ -7,50 +7,40 @@ struct Node {
     float value;
     Node *next;
 };
-
-void output(Node *);
+// more function prototypes made
+void addNodeToFront(Node*& head, float val);
+void addNodeToTail(Node*& head, float val);
+void insertNode(Node*& head, float val, int position);
+void deleteNode(Node*& head, int position);
+void deleteList(Node*& head);
+void output(Node * hd);
 
 int main() {
     Node *head = nullptr;
-    int count = 0;
+    int entry;
 
-    // create a linked list of size SIZE with random numbers 0-99
+    cout <<"--- building list with addNodeToFront---"<<endl;
     for (int i = 0; i < SIZE; i++) {
-        int tmp_val = rand() % 100;
-        Node *newVal = new Node;
-        
-        // adds node at head
-        if (!head) { // if this is the first node, it's the new head
-            head = newVal;
-            newVal->next = nullptr;
-            newVal->value = tmp_val;
-        }
-        else { // its a second or subsequent node; place at the head
-            newVal->next = head;
-            newVal->value = tmp_val;
-            head = newVal;
-        }
+        addNodeToFront(head, rand() % 100);
     }
     output(head);
+    
 
     // deleting a node
-    Node * current = head;
-    cout << "Which node to delete? " << endl;
-    output(head);
-    int entry;
-    cout << "Choice --> ";
+    cout <<"--- Deleting a node---"<<endl;
+    cout << "Which node to delete? ";
     cin >> entry;
+    deleteNode(head, entry);
+    output(head);
 
-    // traverse that many times and delete that node
-    current = head;
-    Node *prev = head;
-    for (int i = 0; i < (entry-1); i++)
-        if (i == 0)
-            current = current->next;
-        else {
-            current = current->next;
-            prev = prev->next;
-        }
+    // inserting a node
+    cout <<"--- Inserting a node---"<<endl;
+    cout << "Which node to insert 10000? ";
+    cin >> entry;
+    insertNode(head,10000 ,entry);
+    output(head);
+
+    
     // at this point, delete current and reroute pointers
     if (current) {  // checks for current to be valid before deleting the node
         prev->next = current->next;
